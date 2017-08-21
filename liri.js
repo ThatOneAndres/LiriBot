@@ -5,13 +5,14 @@ var spotifyKeys = keys.spotifyKeys;
 var ombdKey = keys.ombdKey;
 var Spotify = require('node-spotify-api');
 var action = process.argv[3];
+var fs = require("fs");
 
 
 function performCall(){
 	switch(command){
 		case "my-tweets":
+			fs.appendFile("log.txt","node liri.js my-tweets\r\n", function(err){});
 			var Twitter = require('twitter');
-			
 			var client = new Twitter({
 			  consumer_key: twitterKeys.consumer_key,
 			  consumer_secret: twitterKeys.consumer_secret,
@@ -40,7 +41,7 @@ function performCall(){
 			break;
 		case "spotify-this-song":
 			if(action){
-				var spotify = new Spotify({
+				  fs.appendFile("log.txt",'node liri.js spotify-this-song "' +action+'"\r\n', function(err){});				var spotify = new Spotify({
 				  id: spotifyKeys.client_id,
 				  secret: spotifyKeys.client_secret
 				});
@@ -64,6 +65,7 @@ function performCall(){
 			break;
 		case "movie-this":
 			if (action){
+			fs.appendFile("log.txt",'node liri.js movie-this "' +action+'"\r\n', function(err){});
 			var request = require('request');
 			var ombdURL = "http://www.omdbapi.com/?apikey="+ombdKey.api_key+"&t=Finding+Dory"
 			console.log(ombdURL);
@@ -92,7 +94,6 @@ function performCall(){
 
 if(command){
 	if(command === "do-what-it-says"){
-		var fs = require("fs");
 		fs.readFile("random.txt", "utf8", function(error, data) {
 		  // If the code experiences any errors it will log the error to the console.
 		  if (error) {
