@@ -67,7 +67,7 @@ function performCall(){
 			if (action){
 			fs.appendFile("log.txt",'node liri.js movie-this "' +action+'"\r\n', function(err){});
 			var request = require('request');
-			var ombdURL = "http://www.omdbapi.com/?apikey="+ombdKey.api_key+"&t=Finding+Dory"
+			var ombdURL = "http://www.omdbapi.com/?apikey="+ombdKey.api_key+"&t=" + action;
 			console.log(ombdURL);
 			request(ombdURL, function (error, response, body) {
 			  console.log('error:', error); // Print the error if one occurred 
