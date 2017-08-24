@@ -1,3 +1,11 @@
 node liri.js my-tweets
 node liri.js spotify-this-song "lose yourself"
 node liri.js movie-this "Finding Dory"
+spotify-this-song "Lose Yourself"
+spotify-this-song "Lose Yourself"
+spotify-this-song "asdad"
+spotify-this-song "asdad"
+my-tweets
+spotify-this-song "Hello"
+movie-this "Fifth Element"
+spotify-this-song ""I Want it That Way""

@@ -11,7 +11,7 @@ var fs = require("fs");
 function performCall(){
 	switch(command){
 		case "my-tweets":
-			fs.appendFile("log.txt","node liri.js my-tweets\r\n", function(err){});
+			fs.appendFile("log.txt","my-tweets\r\n", function(err){});
 			var Twitter = require('twitter');
 			var client = new Twitter({
 			  consumer_key: twitterKeys.consumer_key,
@@ -41,7 +41,7 @@ function performCall(){
 			break;
 		case "spotify-this-song":
 			if(action){
-				  fs.appendFile("log.txt",'node liri.js spotify-this-song "' +action+'"\r\n', function(err){});				var spotify = new Spotify({
+				  fs.appendFile("log.txt",'spotify-this-song "' +action+'"\r\n', function(err){});				var spotify = new Spotify({
 				  id: spotifyKeys.client_id,
 				  secret: spotifyKeys.client_secret
 				});
@@ -51,12 +51,21 @@ function performCall(){
 				    return console.log('Error occurred: ' + err);
 				  }
 					var songs = data.tracks.items;
-					for (let i = 0; i < songs.length; i++){
+					if(songs.length > 0){
 						console.log("-------------------------------------");
-						console.log("Artist: " + songs[i].artists[0].name);
-						console.log("Song name: "+ songs[i].name);
-						console.log("Preview: " + songs[i].external_urls.spotify);
-						console.log("Album: "+ songs[i].album.name)
+						console.log("Artist: " + songs[0].artists[0].name);
+						console.log("Song name: "+ songs[0].name);
+						console.log("Preview: " + songs[0].external_urls.spotify);
+						console.log("Album: "+ songs[0].album.name);
+					}else{
+						spotify.search({ type: 'track', query: "The Sign by Ace of Base"}, function(err, data2){
+						var song = data2.tracks.items;
+						console.log("-------------------------------------");
+						console.log("Artist: " + song[0].artists[0].name);
+						console.log("Song name: "+ song[0].name);
+						console.log("Preview: " + song[0].external_urls.spotify);
+						console.log("Album: "+ song[0].album.name);
+						});
 					}
 				});
 			}else{
@@ -65,7 +74,7 @@ function performCall(){
 			break;
 		case "movie-this":
 			if (action){
-			fs.appendFile("log.txt",'node liri.js movie-this "' +action+'"\r\n', function(err){});
+			fs.appendFile("log.txt",'movie-this "' +action+'"\r\n', function(err){});
 			var request = require('request');
 			var ombdURL = "http://www.omdbapi.com/?apikey="+ombdKey.api_key+"&t=" + action;
 			console.log(ombdURL);
